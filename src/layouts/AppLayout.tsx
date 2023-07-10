@@ -8,11 +8,11 @@ function AppLayout() {
 
             <div style={{ height: 'calc(100vh - 80px)' }} className=" tw-bg-[#000000] tw-h-[100vh] tw-w-[100vw] tw-flex ">
 
-                <div className='tw-flex tw-flex-grow tw-max-w-[300px] tw-p-2'>
+                <div className='tw-flex tw-flex-grow tw-max-w-[400px] tw-p-2'>
                     <Sidebar />
                 </div>
 
-                <div className='tw-flex tw-flex-grow'>
+                <div className='tw-flex tw-flex-grow tw-bg-red-500'>
                     <Outlet />
                 </div>
 
