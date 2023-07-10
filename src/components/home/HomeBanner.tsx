@@ -47,11 +47,7 @@ function HomeBanner() {
             </div>
 
         </div>
-
-        <div className="tw-mt-10">
-            asd
-        </div>
-
+        
     </div>
   )
 }

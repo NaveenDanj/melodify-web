@@ -2,11 +2,12 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import HomeBanner from 'src/components/home/HomeBanner';
+import Suggestions from 'src/components/home/Suggestions';
 
 
 function Home() {
     return (
-        <div className="tw-bg-gradient-to-b tw-from-[#212121] tw-to-[#121212] tw-w-full tw-rounded-md">
+        <div className="tw-h-full tw-overflow-y-auto tw-bg-gradient-to-b tw-from-[#212121] tw-to-[#121212] tw-w-full tw-rounded-md">
             
             <div className="tw-p-2 tw-w-full tw-flex tw-justify-between">
                 
@@ -26,9 +27,10 @@ function Home() {
 
             </div>
 
-            <div className=''>
-                <HomeBanner />
-            </div>
+            <HomeBanner />
+            <Suggestions />
+            <Suggestions />
+            <Suggestions />
 
         </div>
     )
