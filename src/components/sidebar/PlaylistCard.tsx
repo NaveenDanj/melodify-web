@@ -5,7 +5,7 @@ function PlaylistCard() {
   return (
     <div className="tw-flex tw-cursor-pointer tw-w-full hover:tw-bg-[#1A1A1A] tw-py-2 tw-rounded-md">
         <div className="tw-ml-2 tw-flex  tw-cursor-pointer">
-            <img style={{ width : 40 }} className="tw-rounded-md  tw-cursor-pointer" src="https://i.scdn.co/image/ab67616d00004851a0e7694a73abed7372474d69" />
+            <img style={{ width : 45 }} className="tw-rounded-md  tw-cursor-pointer" src="https://i.scdn.co/image/ab67616d00004851a0e7694a73abed7372474d69" />
         
             <div className="tw-flex tw-flex-col tw-my-auto tw-ml-3">
                 <label className='tw-cursor-pointer'>Eminem</label>

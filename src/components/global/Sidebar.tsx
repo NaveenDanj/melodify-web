@@ -61,11 +61,6 @@ function Sidebar() {
                         <PlaylistCard />
                         <PlaylistCard />
                         <PlaylistCard />
-                        <PlaylistCard />
-                        <PlaylistCard />
-                        <PlaylistCard />
-                        <PlaylistCard />
-                        <PlaylistCard />
                     </div>
 
 

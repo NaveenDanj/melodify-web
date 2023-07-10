@@ -12,11 +12,11 @@ function AppLayout() {
                     <Sidebar />
                 </div>
 
-                <div className='tw-flex tw-flex-grow tw-bg-red-500'>
+                <div className='tw-flex tw-flex-grow tw-p-2'>
                     <Outlet />
                 </div>
 
-                <div className='tw-flex tw-flex-grow tw-max-w-[280px] tw-bg-blue-500'>
+                <div className='tw-hidden xl:tw-flex lg:tw-flex-grow lg:tw-max-w-[280px] lg:tw-bg-blue-500'>
                     asd
                 </div>
             </div>
