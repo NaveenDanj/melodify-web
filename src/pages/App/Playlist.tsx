@@ -8,6 +8,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PlaylistItem from 'src/components/playlist/PlaylistItem';
+import AddItem from 'src/components/playlist/AddItem';
 
 
 
@@ -83,8 +84,8 @@ function Playlist() {
                             <label className='tw-text-sm tw-text-slate-300'>Title</label>
                         </div>
 
-                        <label className='tw-text-sm tw-text-slate-300'>Album</label>
-                        <label className='tw-text-sm tw-text-slate-300'>Date added</label>
+                        <label className='tw-relative tw-left-[80px] tw-text-sm tw-text-slate-300'>Album</label>
+                        <label className='tw-relative tw-left-[40px] tw-text-sm tw-text-slate-300'>Date added</label>
                         <AccessTimeIcon className='tw-text-sm tw-text-slate-300' />
 
                     </div>
@@ -108,6 +109,24 @@ function Playlist() {
                    <PlaylistItem />
                    <PlaylistItem />
 
+                </div>
+
+
+            </div>
+
+            <div className="tw-relative tw-p-5 tw-top-[-160px]" >
+                
+                <div>
+                    <h2 className='tw-text-2xl tw-font-bold'>Recommended</h2>
+                    <label className='tw-text-xs tw-text-slate-200'>Based on what's in this playlist</label>
+                </div>
+
+                <div className='tw-flex tw-flex-col tw-mt-5'>
+                   <AddItem />
+                   <AddItem />
+                   <AddItem />
+                   <AddItem />
+                   <AddItem />
                 </div>
 
 
