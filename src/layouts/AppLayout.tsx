@@ -12,7 +12,7 @@ function AppLayout() {
                     <Sidebar />
                 </div>
 
-                <div className='tw-flex tw-flex-grow tw-p-2'>
+                <div className='tw-overflow-y-auto tw-flex tw-flex-grow tw-p-2'>
                     <Outlet />
                 </div>
 
