@@ -4,6 +4,7 @@ import Home from "src/pages/App/Home";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Search from "src/pages/App/Search";
+import Playlist from "src/pages/App/Playlist";
 
 
 const darkTheme = createTheme({
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<AppLayout />}>
             <Route index element={<Home />} />
             <Route path="search" element={ <Search /> } />
+            <Route path="playlist" element={ <Playlist /> } />
             {/* <Route path="blogs" element={<Blogs />} /> */}
             {/* <Route path="*" element={<NoPage />} /> */}
           </Route>

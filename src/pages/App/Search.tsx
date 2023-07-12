@@ -4,6 +4,7 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import SearchIcon from '@mui/icons-material/Search';
 import SearchItem from 'src/components/search/SearchItem';
+import './search.css'
 
 function Search() {
   return (
@@ -26,7 +27,7 @@ function Search() {
             <div className='tw-ml-4 tw-flex tw-flex-grow'>
                 <div style={{ borderRadius : 30 }} className='tw-p-3 tw-gap-2 tw-bg-[#3B3B3B] tw-flex tw-min-w-[100%] lg:tw-min-w-[350px] tw-my-auto'>
                     <SearchIcon />
-                    <input className='tw-w-full' placeholder='What do you want to listen to?' type='text' />
+                    <input style={{ borderColor : 'None' }} className='tw-w-full' placeholder='What do you want to listen to?' type='text' />
                 </div>
             </div>
 
