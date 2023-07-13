@@ -2,6 +2,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import QueueItem from './QueueItem';
+import ArtistCard from '../queue/ArtistCard';
 
 function RightSideBar() {
   return (
@@ -39,6 +40,8 @@ function RightSideBar() {
 
         </div>
 
+        <ArtistCard />
+
         <div className='tw-mt-5 tw-p-3 tw-bg-[#232323] tw-rounded-md'>
             
             <div className='tw-flex tw-justify-between'>
@@ -54,6 +57,7 @@ function RightSideBar() {
             </div>
         
         </div>
+
 
     </div>
   )

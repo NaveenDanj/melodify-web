@@ -7,7 +7,7 @@ import QueueItem from 'src/components/queue/QueueItem';
 
 function Queied() {
   return (
-    <div className="tw-h-full  tw-overflow-hidden tw-bg-gradient-to-b tw-from-[#212121] tw-to-[#121212] tw-w-full tw-rounded-md">
+    <div className="tw-h-full   tw-overflow-hidden tw-bg-gradient-to-b tw-from-[#212121] tw-to-[#121212] tw-w-full tw-rounded-md">
 
         <div className="tw-p-2 tw-w-full tw-flex tw-justify-between">
             
@@ -35,17 +35,38 @@ function Queied() {
 
         </div>
 
-        <div style={{ height : 'calc(100vh - 56px)' }} className=' tw-p-2 tw-overflow-y-auto tw-pb-10'>
+        <div style={{ height : 'calc(100vh - 56px)' }} className=' tw-p-2 tw-overflow-y-auto tw-pb-20'>
 
             <div className='tw-mt-5'>
                 <label className='tw-text-2xl tw-font-bold'>Queue</label>
             </div>
 
-            <div className='tw-mt-1'>
+            <div className='tw-mt-3'>
                 <label className='tw-text-sm tw-font-bold tw-text-slate-200'>Now playing</label>
             </div>
 
-            <div className='tw-mt-1 tw-flex tw-flex-col tw-gap-2 tw-pb-20'>
+            <div className='tw-mt-1 tw-flex tw-flex-col tw-gap-2 tw-pb-10'>
+                <QueueItem />
+                <QueueItem />
+                <QueueItem />
+                <QueueItem />
+
+            </div>
+
+
+            <div className='tw-mt-0'>
+                <label className='tw-text-sm tw-font-bold tw-text-slate-200'>Next from: 2Pac</label>
+            </div>
+
+            <div className='tw-mt-1 tw-flex tw-flex-col tw-gap-2 tw-pb-10'>
+                <QueueItem />
+                <QueueItem />
+                <QueueItem />
+                <QueueItem />
+                <QueueItem />
+                <QueueItem />
+                <QueueItem />
+                <QueueItem />
                 <QueueItem />
                 <QueueItem />
                 <QueueItem />
@@ -54,8 +75,6 @@ function Queied() {
             </div>
 
         </div>
-
-
 
     </div>
   )
