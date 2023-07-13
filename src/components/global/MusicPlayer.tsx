@@ -50,9 +50,9 @@ function MusicPlayer() {
                         <RepeatIcon className="tw-cursor-pointer tw-my-auto tw0-text-slate-200 hover:tw-text-[#ECECEC]" sx={{ fontSize : 25  }} />
                     </div>
 
-                    <Stack className="tw-mt-1" spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                    <Stack className="tw-mt-2" spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
                         <label className='tw-cursor-pointer tw-text-xs'>2:48</label>
-                        <Slider style={{ color : '#1DB954' }} value={50} aria-label="Volume" />
+                        <Slider size="small" style={{ color : '#1DB954' }} value={50} aria-label="Volume" />
                         <label className='tw-cursor-pointer tw-text-xs'>6:00</label>
                     </Stack>
 
@@ -67,7 +67,7 @@ function MusicPlayer() {
                     <SlideshowIcon className="tw-cursor-pointer  tw-my-auto tw0-text-slate-200 hover:tw-text-[#ECECEC]" sx={{ fontSize : 20  }} />
                     <QueueMusicIcon className="tw-cursor-pointer tw-my-auto tw0-text-slate-200 hover:tw-text-[#ECECEC]" sx={{ fontSize : 20  }} />
                     <VolumeDownIcon className="tw-cursor-pointer tw-my-auto tw0-text-slate-200 hover:tw-text-[#ECECEC]" sx={{ fontSize : 20  }} />
-                    <Slider style={{ color : '#1DB954' }} className="tw-mr-2" value={50} aria-label="Volume" />                    
+                    <Slider size="small" style={{ color : '#1DB954' }} className="tw-mr-2" value={50} aria-label="Volume" />                    
                 </div>
             </div>
         

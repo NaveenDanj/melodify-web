@@ -52,7 +52,7 @@ function Search() {
                 <label className="tw-my-auto tw-cursor-pointer tw-text-slate-200 hover:tw-underline tw-text-sm tw-font-bold">Show all</label>
             </div>
 
-            <div className="tw-grid tw-gap-5 tw-grid-rows-1 tw-mt-5 tw-grid-cols-2 md:tw-grid-cols-4 xl:tw-grid-cols-6">
+            <div className="tw-grid tw-gap-5 tw-grid-rows-1 tw-mt-5 tw-grid-cols-2 md:tw-grid-cols-4 xl:tw-grid-cols-5">
                 <SearchItem />
                 <SearchItem />
                 <SearchItem />

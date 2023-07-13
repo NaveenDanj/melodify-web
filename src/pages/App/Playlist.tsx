@@ -15,7 +15,7 @@ import AddItem from 'src/components/playlist/AddItem';
 
 function Playlist() {
   return (
-    <div className="tw-h-full tw-overflow-hidden tw-bg-gradient-to-b tw-from-[#212121] tw-to-[#121212] tw-w-full tw-rounded-md">
+    <div className="tw-h-full  tw-overflow-hidden tw-bg-gradient-to-b tw-from-[#212121] tw-to-[#121212] tw-w-full tw-rounded-md">
         
         <div className="tw-p-2 tw-w-full tw-flex tw-justify-between">
                 
