@@ -5,6 +5,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Search from "src/pages/App/Search";
 import Playlist from "src/pages/App/Playlist";
+import Queied from "src/pages/App/Queied";
 
 
 const darkTheme = createTheme({
@@ -23,6 +24,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="search" element={ <Search /> } />
             <Route path="playlist" element={ <Playlist /> } />
+            <Route path="queied" element={ <Queied /> } />
             {/* <Route path="blogs" element={<Blogs />} /> */}
             {/* <Route path="*" element={<NoPage />} /> */}
           </Route>
