@@ -101,10 +101,10 @@ function MusicPlayer() {
                 
                 <div className="tw-flex tw-cursor-pointer tw-w-full tw-justify-between tw-py-2 tw-rounded-md">
                     <div className="tw-ml-2 tw-flex  tw-cursor-pointer">
-                        <img style={{ width : 45 }} className="tw-rounded-md  tw-cursor-pointer" src="https://i.scdn.co/image/ab67616d00004851a0e7694a73abed7372474d69" />
+                        <img style={{ width : 45 }} className="tw-rounded-md tw-my-auto  tw-cursor-pointer" src="https://i.scdn.co/image/ab67616d00004851a0e7694a73abed7372474d69" />
                     
                         <div className="tw-flex tw-flex-col tw-my-auto tw-ml-3">
-                            <label className='tw-cursor-pointer'>Eminem</label>
+                            <label className='tw-cursor-pointer tw-text-sm tw-font-thin'>Eminem</label>
                             <div className=' tw-cursor-pointer'>
                                 <label className="tw-cursor-pointer tw-text-xs tw-text-slate-400">Eminem</label>
                             </div>
