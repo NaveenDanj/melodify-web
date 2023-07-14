@@ -6,6 +6,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Discography from 'src/components/artist/Discography';
 import ArtistCard from 'src/components/user/ArtistCard';
 import TopTracks from 'src/components/user/TopTracks';
+import PublicPlaylists from 'src/components/user/PublicPlaylists';
 
 
 
@@ -95,10 +96,44 @@ function UserProfile() {
 
                 <div className='tw-mt-10'>
                     <div className='tw-flex tw-justify-between'>
-                        <label className="tw-ml-2 tw-my-auto hover:tw-cursor-pointer tw-text-2xl tw-font-bold hover:tw-underline">Featuring Backstreet Boys</label>
+                        <label className="tw-ml-2 tw-my-auto hover:tw-cursor-pointer tw-text-2xl tw-font-bold hover:tw-underline">Public playlists</label>
                         <label className="tw-my-auto tw-cursor-pointer tw-text-slate-200 hover:tw-underline tw-text-sm tw-font-bold">Show all</label>
                     </div>
-                    <Discography />
+                    
+                    <PublicPlaylists />
+
+                </div>
+
+
+                <div className='tw-mt-10'>
+                    <div className='tw-flex tw-justify-between'>
+                        <label className="tw-ml-2 tw-my-auto hover:tw-cursor-pointer tw-text-2xl tw-font-bold hover:tw-underline">Followers</label>
+                        <label className="tw-my-auto tw-cursor-pointer tw-text-slate-200 hover:tw-underline tw-text-sm tw-font-bold">Show all</label>
+                    </div>
+
+                    <div className='tw-mt-5 tw-gap-3 tw-grid tw-grid-container tw-grid-cols-[repeat(auto-fill,minmax(180px,1fr))]'>
+                        <ArtistCard />
+                        <ArtistCard />
+                        <ArtistCard />
+                        <ArtistCard />
+                    </div>
+                    
+                </div>
+
+
+                <div className='tw-mt-10'>
+                    <div className='tw-flex tw-justify-between'>
+                        <label className="tw-ml-2 tw-my-auto hover:tw-cursor-pointer tw-text-2xl tw-font-bold hover:tw-underline">Following</label>
+                        <label className="tw-my-auto tw-cursor-pointer tw-text-slate-200 hover:tw-underline tw-text-sm tw-font-bold">Show all</label>
+                    </div>
+
+                    <div className='tw-mt-5 tw-gap-3 tw-grid tw-grid-container tw-grid-cols-[repeat(auto-fill,minmax(180px,1fr))]'>
+                        <ArtistCard />
+                        <ArtistCard />
+                        <ArtistCard />
+                        <ArtistCard />
+                    </div>
+                    
                 </div>
 
             </div>
