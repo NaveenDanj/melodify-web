@@ -8,7 +8,7 @@ import './search.css'
 
 function Search() {
   return (
-    <div className="tw-overflow-y-auto tw-h-full tw-bg-gradient-to-b tw-from-[#212121] tw-to-[#121212] tw-w-full tw-rounded-md">
+    <div className="tw-overflow-y-auto tw-h-full tw-bg-gradient-to-b tw-p-2 tw-from-[#212121] tw-to-[#121212] tw-w-full tw-rounded-md">
         
         <div className="tw-p-2 tw-w-full tw-flex tw-justify-between">
             
@@ -52,7 +52,7 @@ function Search() {
                 <label className="tw-my-auto tw-cursor-pointer tw-text-slate-200 hover:tw-underline tw-text-sm tw-font-bold">Show all</label>
             </div>
 
-            <div className="tw-grid tw-gap-5 tw-grid-rows-1 tw-mt-5 tw-grid-cols-2 md:tw-grid-cols-4 xl:tw-grid-cols-5">
+            <div className="tw-gap-5 tw-mt-5 tw-grid tw-grid-container tw-grid-cols-[repeat(auto-fill,minmax(180px,1fr))] tw-w-full">
                 <SearchItem />
                 <SearchItem />
                 <SearchItem />

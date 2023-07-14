@@ -7,6 +7,7 @@ import Search from "src/pages/App/Search";
 import Playlist from "src/pages/App/Playlist";
 import Queied from "src/pages/App/Queied";
 import ArtistProfile from "src/pages/App/ArtistProfile";
+import UserProfile from "src/pages/App/UserProfile";
 
 
 const darkTheme = createTheme({
@@ -27,6 +28,7 @@ function App() {
             <Route path="playlist" element={ <Playlist /> } />
             <Route path="queied" element={ <Queied /> } />
             <Route path="artist" element={  <ArtistProfile />} />
+            <Route path="user" element={ <UserProfile /> } />
             {/* <Route path="blogs" element={<Blogs />} /> */}
             {/* <Route path="*" element={<NoPage />} /> */}
           </Route>

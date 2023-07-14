@@ -7,7 +7,7 @@ import Suggestions from 'src/components/home/Suggestions';
 
 function Home() {
     return (
-        <div className="tw-h-full tw-overflow-y-auto tw-bg-gradient-to-b tw-from-[#212121] tw-to-[#121212] tw-w-full tw-rounded-md">
+        <div className="tw-h-full tw-p-2 tw-overflow-y-auto tw-bg-gradient-to-b tw-from-[#212121] tw-to-[#121212] tw-w-full tw-rounded-md">
             
             <div className="tw-p-2 tw-w-full tw-flex tw-justify-between">
                 

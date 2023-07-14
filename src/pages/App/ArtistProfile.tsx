@@ -7,8 +7,6 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import PopularItem from 'src/components/artist/PopularItem';
 import Discography from 'src/components/artist/Discography';
-import ArtistCard from 'src/components/queue/ArtistCard';
-
 
 
 function ArtistProfile() {
