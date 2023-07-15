@@ -3,7 +3,6 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import Discography from 'src/components/artist/Discography';
 import ArtistCard from 'src/components/user/ArtistCard';
 import TopTracks from 'src/components/user/TopTracks';
 import PublicPlaylists from 'src/components/user/PublicPlaylists';
