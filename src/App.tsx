@@ -10,6 +10,7 @@ import ArtistProfile from "src/pages/App/ArtistProfile";
 import UserProfile from "src/pages/App/UserProfile";
 import Login from "src/pages/Auth/Login";
 import AuthLayout from "src/layouts/AuthLayout";
+import Register from "src/pages/Auth/Register";
 
 
 const darkTheme = createTheme({
@@ -39,6 +40,7 @@ function App() {
 
           <Route path="/auth" element={<AuthLayout />}>
             <Route path="login" element={ <Login /> } />
+            <Route path="register" element={ <Register /> } />
           </Route>
 
         </Routes>
