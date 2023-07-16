@@ -76,6 +76,19 @@ function Login() {
             </button>
           </div>
 
+
+          <div className='tw-w-full tw-mb-3 tw-mt-5 tw-flex tw-justify-center'>
+            <label className=' tw-underline tw-cursor-pointer hover:tw-text-[#1FDF64]'>Forgot your password?</label>
+          </div>
+
+          <hr />
+
+          <div className='tw-w-full tw-mb-3 tw-mt-5 tw-flex tw-justify-center'>
+            <label className='tw-text-[#82A7A7] tw-cursor-pointer '> Don't have an account? <span className='tw-text-white hover:tw-text-[#1FDF64] tw-text-underline'>Sign up for Spotify</span></label>
+          </div>
+
+
+        
         </div>
 
       </div>
