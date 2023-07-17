@@ -6,6 +6,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import PlaylistItem from 'src/components/playlist/PlaylistItem';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import CreatePlaylistDialog from 'src/components/dialogs/CreatePlaylistDialog';
 
 function CreatePlaylist() {
   return (
@@ -40,21 +41,7 @@ function CreatePlaylist() {
         <div style={{ height : 'calc(100vh - 56px)' }} className=' tw-bg-[#212121]  tw-overflow-y-auto '>
 
             <div className='tw-w-full tw-h-[400px] tw-bg-gradient-to-b tw-from-[#C9052B] tw-to-[#212121]'>
-                
-                <div className='tw-flex tw-p-5'>
-                    <img className=' tw-shadow-lg' style={{ width : 200 , height : 200 , borderRadius : 100 }} src='https://i.scdn.co/image/ab67706f00000002724554ed6bed6f051d9b0bfc' />
-
-                    <div className='tw-w-[100%] tw-h-[100px] tw-flex tw-flex-col tw-ml-5 tw-my-auto'>
-                        <div className='tw-flex'>
-                            <h1 className="tw-my-auto hover:tw-cursor-pointer tw-text-sm tw-font-semibold">Public playlist</h1>
-                        </div>
-
-                        <label className='tw-font-bold tw-text-5xl tw-mt-2'>My Playlist #32</label>
-                        <label className='tw-font-bold tw-text-sm tw-mt-10 tw-justify-end'>NaveenDan</label>
-                    </div>
-                
-                </div> 
-
+                <CreatePlaylistDialog />
             </div>
 
             <div className="tw-relative tw-p-5 tw-top-[-160px]" >
