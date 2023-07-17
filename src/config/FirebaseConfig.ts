@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
+
+console.log('api key -> ' , import.meta.env.VITE_API_KEY)
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -11,7 +12,6 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_Measurement_Id
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 

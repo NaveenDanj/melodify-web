@@ -1,18 +1,55 @@
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import AppleIcon from '@mui/icons-material/Apple';
-
+import Loading from 'src/components/global/Loading';
+import {useState} from 'react'
+import { Alert } from '@mui/material';
+import AuthService from 'src/services/AurhService'
 
 function Login() {
+
+  const [email , setEmail] = useState('')
+  const [password , setPassword] = useState('')
+  const [error , setError] = useState('')
+  const [loading , setLoading] = useState(false)
+
+  const handleLogin = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+
+    if(!email || !password){
+      setError("Email and password fields are required")
+      setLoading(false)
+    }
+
+    const user = await AuthService.login(email , password)
+
+    console.log(user)
+
+    if(typeof(user) == 'string'){
+      setError('as')
+    }
+
+    setLoading(false)
+
+  }
+
   return (
     <div className="tw-flex tw-rounded-lg tw-justify-center tw-bg-[#000000] tw-flex-grow tw-max-w-[700px] tw-p-5">
-        
+      
+      {loading && <Loading />}
+      
       <div className="tw-flex tw-flex-col  tw-flex-grow tw-max-w-[600px]">
 
         <div className="tw-flex tw-my-14 tw-w-full tw-justify-center">
           <label className="tw-font-bold tw-text-4xl">Log in to Melodify</label>
         </div>
 
+        {error != '' && 
+          <div className='tw-mb-5'>
+            <Alert severity="error">{error}</Alert>
+          </div>
+        }
         <div className="tw-mb-10  tw-flex tw-flex-col tw-gap-3">
           <center>
             <div style={{ border : '1px solid rgba(255,255,255,0.7)' }} className="tw-cursor-pointer tw-flex tw-max-w-[400px] tw-gap-20 tw-bg-transparent tw-rounded-2xl tw-w-full tw-p-3">
@@ -40,7 +77,7 @@ function Login() {
         <hr />
 
 
-        <div className="tw-mb-10 tw-mt-10 tw-flex tw-flex-col tw-gap-5">
+        <form onSubmit={e => handleLogin(e)} className="tw-mb-10 tw-mt-10 tw-flex tw-flex-col tw-gap-5">
 
           <div className='tw-w-full tw-flex tw-justify-center'>
             <div className="tw-cursor-pointer tw-flex tw-max-w-[400px] tw-w-full">
@@ -48,7 +85,7 @@ function Login() {
               <div className='tw-flex tw-gap-2 tw-flex-col'>
                   <label className='tw-cursor-pointer tw-text-xs tw-font-bold '>Email or username</label>
                   <div style={{ border : '1px solid rgba(255,255,255,0.7)' }} className='tw-p-3 tw-rounded-md tw-bg-[#121212] tw-flex tw-min-w-[400px] tw-my-auto'>
-                    <input style={{ borderColor : 'None' }} className='tw-bg-[#121212] tw-w-full' placeholder='Email or username' type='text' />
+                    <input onChange={(e) => setEmail(e.target.value)} style={{ borderColor : 'None' }} className='tw-bg-[#121212] tw-w-full' required placeholder='Email or username' type='email' />
                   </div>
               </div>
             
@@ -61,7 +98,7 @@ function Login() {
               <div className='tw-flex tw-gap-2 tw-flex-col'>
                   <label className='tw-cursor-pointer tw-text-xs tw-font-bold '>Password</label>
                   <div style={{ border : '1px solid rgba(255,255,255,0.7)' }} className='tw-p-3 tw-rounded-md tw-bg-[#121212] tw-flex tw-min-w-[400px] tw-my-auto'>
-                    <input style={{ borderColor : 'None' }} className='tw-bg-[#121212] tw-w-full' placeholder='Password' type='password' />
+                    <input onChange={(e) => setPassword(e.target.value)} style={{ borderColor : 'None' }} className='tw-bg-[#121212] tw-w-full' required placeholder='Password' type='password' />
                   </div>
               </div>
             
@@ -70,7 +107,7 @@ function Login() {
 
 
           <div className='tw-w-full tw-mt-5 tw-flex tw-justify-center'>
-            <button style={{ border : '1px solid rgba(255,255,255,0.7)' }} className="tw-cursor-pointer tw-flex tw-justify-center tw-max-w-[400px] tw-gap-20 tw-bg-[#1FDF64] tw-rounded-3xl tw-w-full tw-p-3">
+            <button type='submit' style={{ border : '1px solid rgba(255,255,255,0.7)' }} className="tw-cursor-pointer tw-flex tw-justify-center tw-max-w-[400px] tw-gap-20 tw-bg-[#1FDF64] tw-rounded-3xl tw-w-full tw-p-3">
               <label className='tw-cursor-pointer tw-text-black tw-my-auto tw-font-bold tw-justify-center'>Log In</label>
             </button>
           </div>
@@ -86,9 +123,7 @@ function Login() {
             <label className='tw-text-[#82A7A7] tw-cursor-pointer '> Don't have an account? <span className='tw-text-white hover:tw-text-[#1FDF64] tw-text-underline'>Sign up for Spotify</span></label>
           </div>
 
-
-        
-        </div>
+        </form>
 
       </div>
 
