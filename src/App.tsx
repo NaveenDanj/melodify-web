@@ -14,6 +14,8 @@ import Login from "src/pages/Auth/Login";
 import AuthLayout from "src/layouts/AuthLayout";
 import Register from "src/pages/Auth/Register";
 import PrivateRoute from "src/components/routes/ProtectedRoute";
+import AuthService from 'src/services/AurhService'
+
 
 const darkTheme = createTheme({
   palette: {
@@ -22,6 +24,9 @@ const darkTheme = createTheme({
 });
 
 function App() {
+
+  const authState = AuthService.checkAuthState() == null ? false : true
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
@@ -31,12 +36,12 @@ function App() {
         <Routes>
 
           <Route path="/" element={<AppLayout />}>
-            <Route index element={ <PrivateRoute element={<Home />} /> } />
-            <Route path="search" element={ <PrivateRoute element={<Search />} />  } />
-            <Route path="playlist" element={ <PrivateRoute element={<Playlist />} />  } />
-            <Route path="queied" element={ <PrivateRoute element={<Queied />} />  } />
-            <Route path="artist" element={ <PrivateRoute element={<ArtistProfile />} /> } />
-            <Route path="user" element={ <PrivateRoute element={<UserProfile /> } /> } />
+            <Route index element={ <PrivateRoute isAuth={authState} element={<Home />} /> } />
+            <Route path="search" element={ <PrivateRoute isAuth={authState} element={<Search />} />  } />
+            <Route path="playlist" element={ <PrivateRoute isAuth={authState} element={<Playlist />} />  } />
+            <Route path="queied" element={ <PrivateRoute isAuth={authState} element={<Queied />} />  } />
+            <Route path="artist" element={ <PrivateRoute isAuth={authState} element={<ArtistProfile />} /> } />
+            <Route path="user" element={ <PrivateRoute isAuth={authState} element={<UserProfile /> } /> } />
               {/* <Route path="*" element={<NoPage />} /> */}
           </Route>
 

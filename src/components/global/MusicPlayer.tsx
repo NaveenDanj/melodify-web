@@ -67,7 +67,7 @@ function MusicPlayer() {
         }
     
         return () => {
-          if (audioRef.current) {
+          if (audioRef) {
             audioRef.current.removeEventListener('loadedmetadata', () => {
               setTotalTime(audioRef.current.duration);
             });
