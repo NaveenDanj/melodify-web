@@ -4,23 +4,22 @@ import { getAuth , signInWithEmailAndPassword , onAuthStateChanged , createUserW
 const auth = getAuth(app);
 
 export default {
-    login : async (email:string , password:string) => {
-        // signInWithEmailAndPassword(auth, email, password)
-        // .then((userCredential) => {
-        //    return userCredential.user;
-        // })
-        // .catch((error) => {
-        //     console.log("login error -> ", error.message)
-        //     return error;
-        // });
 
+    login : async (email:string , password:string) => {
         try{
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
-            return userCredential.user;
+            
+            return {
+                "success" : true,
+                "user" : userCredential.user
+            }
+        
         }catch(err){
-            return err
+            return {
+                "success" : false,
+                "error" : err
+            }
         }
-
     },
 
     checkAuthState : () => {
@@ -34,14 +33,12 @@ export default {
     },
 
     registerByEmailAndPassword : async (email:string , password:string) => {
-
         try{
             const user = await createUserWithEmailAndPassword(auth, email, password)
             return user;
         }catch(err){
             return err
         }
-
     }
 
 }

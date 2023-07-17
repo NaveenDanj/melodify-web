@@ -13,8 +13,12 @@ function Login() {
   const [error , setError] = useState('')
   const [loading , setLoading] = useState(false)
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e:unknown) => {
     setLoading(true);
+    setError('');
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     e.preventDefault();
 
     if(!email || !password){
@@ -22,12 +26,10 @@ function Login() {
       setLoading(false)
     }
 
-    const user = await AuthService.login(email , password)
+    const res = await AuthService.login(email , password)
 
-    console.log(user)
-
-    if(typeof(user) == 'string'){
-      setError('as')
+    if(res.success == false ){
+      setError('Username or password is incorrect.')
     }
 
     setLoading(false)
