@@ -6,10 +6,8 @@ type ProtectedRotueProp = {
     isAuth : boolean
 }
 
-const PrivateRoute = ({element}:ProtectedRotueProp) => {
+const PrivateRoute = ({element , isAuth}:ProtectedRotueProp) => {
     
-    const isAuth = false;
-
     if (isAuth) {
         return element;
     } else {

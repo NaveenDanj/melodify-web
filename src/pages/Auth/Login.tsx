@@ -4,7 +4,14 @@ import AppleIcon from '@mui/icons-material/Apple';
 import Loading from 'src/components/global/Loading';
 import {useState} from 'react'
 import { Alert } from '@mui/material';
-import AuthService from 'src/services/AurhService'
+import AuthService from 'src/services/AuthService'
+
+
+import { useDispatch } from 'react-redux'
+import { setUser } from 'src/store/slices/UserSlice';
+
+
+
 
 function Login() {
 
@@ -13,10 +20,11 @@ function Login() {
   const [error , setError] = useState('')
   const [loading , setLoading] = useState(false)
 
+  const dispatch = useDispatch()
+
   const handleLogin = async (e:unknown) => {
     setLoading(true);
     setError('');
-
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     e.preventDefault();
@@ -33,7 +41,7 @@ function Login() {
     }
 
     setLoading(false)
-
+    dispatch(setUser(res.user))
   }
 
   return (

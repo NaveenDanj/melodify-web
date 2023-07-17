@@ -14,7 +14,12 @@ import Login from "src/pages/Auth/Login";
 import AuthLayout from "src/layouts/AuthLayout";
 import Register from "src/pages/Auth/Register";
 import PrivateRoute from "src/components/routes/ProtectedRoute";
-import AuthService from 'src/services/AurhService'
+import {useEffect , useState} from 'react'
+
+
+import app from "src/config/FirebaseConfig";
+import { getAuth  , onAuthStateChanged   } from "firebase/auth";
+import Loading from "./components/global/Loading";
 
 
 const darkTheme = createTheme({
@@ -25,7 +30,25 @@ const darkTheme = createTheme({
 
 function App() {
 
-  const authState = AuthService.checkAuthState() == null ? false : true
+  const [authState , setAuthState] = useState(false)
+  const [loading , setLoading] = useState(true)
+  
+  useEffect(() => {
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAuthState(true);
+      } else {
+        setAuthState(false);
+      }
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -56,6 +79,8 @@ function App() {
 
     </ThemeProvider>
   )
+  
+
 }
 
 export default App

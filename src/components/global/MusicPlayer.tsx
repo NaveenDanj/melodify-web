@@ -18,7 +18,6 @@ import { useRef , useState , useEffect } from 'react';
 function MusicPlayer() {
 
     const audioRef = useRef(null);
-    const volumeRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [totalTime, setTotalTime] = useState(0);
@@ -67,7 +66,7 @@ function MusicPlayer() {
         }
     
         return () => {
-          if (audioRef) {
+          if (audioRef.current) {
             audioRef.current.removeEventListener('loadedmetadata', () => {
               setTotalTime(audioRef.current.duration);
             });
