@@ -4,7 +4,11 @@ export interface UserAdditionalData {
     phoneNumber: string;
     photoURL: string;
     uid: string;
-    playLists: PlayList[]
+    playLists: PlayList[];
+    recentlyPlayed: PlayList[];
+    likedPlaylist: PlayList[];
+    recentlyPlayedSongs: Song[];
+    likedSongs: Song[]
 }
 
 export interface PlayList{
