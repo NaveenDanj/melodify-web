@@ -9,11 +9,13 @@ import AuthService from 'src/services/AuthService'
 
 import { useDispatch } from 'react-redux'
 import { setUser } from 'src/store/slices/UserSlice';
-
+import { useNavigate  } from 'react-router-dom';
 
 
 
 function Login() {
+
+  const navigate = useNavigate();
 
   const [email , setEmail] = useState('')
   const [password , setPassword] = useState('')
@@ -42,6 +44,8 @@ function Login() {
 
     setLoading(false)
     dispatch(setUser(res.user))
+
+    navigate('/')
   }
 
   return (
@@ -130,7 +134,7 @@ function Login() {
           <hr />
 
           <div className='tw-w-full tw-mb-3 tw-mt-5 tw-flex tw-justify-center'>
-            <label className='tw-text-[#82A7A7] tw-cursor-pointer '> Don't have an account? <span className='tw-text-white hover:tw-text-[#1FDF64] tw-text-underline'>Sign up for Spotify</span></label>
+            <label className='tw-text-[#82A7A7] tw-cursor-pointer '> Don't have an account? <span className='tw-text-white hover:tw-text-[#1FDF64] tw-text-underline'>Sign up for Melodify</span></label>
           </div>
 
         </form>

@@ -4,6 +4,7 @@ import Loading from 'src/components/global/Loading';
 import {useState} from 'react'
 import { Alert } from '@mui/material';
 import AuthService from 'src/services/AuthService'
+import { useNavigate  } from 'react-router-dom';
 
 
 function Register() {
@@ -13,6 +14,9 @@ function Register() {
   const [profileName , setProfileName] = useState('')
   const [error , setError] = useState('')
   const [loading , setLoading] = useState(false)
+
+  const navigate = useNavigate();
+
 
   const handleRegister = async(e:unknown) => {
     setLoading(true);
@@ -33,7 +37,7 @@ function Register() {
     }
 
     setLoading(false)
-
+    navigate('auth/login')
   }
 
 

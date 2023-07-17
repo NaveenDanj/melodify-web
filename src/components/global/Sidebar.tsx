@@ -6,8 +6,19 @@ import SearchIcon from '@mui/icons-material/Search';
 
 import { Chip } from '@mui/material';
 import PlaylistCard from 'src/components/sidebar/PlaylistCard';
+import AuthService from 'src/services/AuthService';
+import { useNavigate  } from 'react-router-dom';
+
 
 function Sidebar() {
+
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        await AuthService.logout()
+        navigate('/auth/login');
+    }
+
     return (
         <div className="tw-flex tw-flex-col tw-w-[100%]">
 
@@ -34,7 +45,7 @@ function Sidebar() {
                         <label className='tw-my-auto tw-cursor-pointer tw-text-md tw-font-bold tw-ml-4 tw-text-gray-300'>Your Library</label>
                     </div>
 
-                    <div className='tw-cursor-pointer tw-rounded-lg tw-p-1 hover:tw-bg-[#292929]'>
+                    <div onClick={handleLogout} className='tw-cursor-pointer tw-rounded-lg tw-p-1 hover:tw-bg-[#292929]'>
                         <AddIcon className='tw-relative tw-top-[-1px]' sx={{ fontSize: 20, color: '#EDEDED' }} />
                     </div>
 

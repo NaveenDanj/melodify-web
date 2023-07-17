@@ -21,6 +21,10 @@ import app from "src/config/FirebaseConfig";
 import { getAuth  , onAuthStateChanged   } from "firebase/auth";
 import Loading from "./components/global/Loading";
 
+import { useDispatch } from 'react-redux'
+import { setUser } from 'src/store/slices/UserSlice';
+import AuthService from "src/services/AuthService";
+
 
 const darkTheme = createTheme({
   palette: {
@@ -28,23 +32,36 @@ const darkTheme = createTheme({
   },
 });
 
+interface UserDTO {
+  email: string | null;
+  displayName: string;
+  photoURL: string;
+  uid: string;
+  phoneNumber: string;
+}
+
+
 function App() {
 
   const [authState , setAuthState] = useState(false)
   const [loading , setLoading] = useState(true)
-  
+  const dispatch = useDispatch()
+
+
   useEffect(() => {
     const auth = getAuth(app);
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setAuthState(true);
+        const data:UserDTO = AuthService.getUserData(user)
+        dispatch(setUser(data))
       } else {
         setAuthState(false);
       }
       setLoading(false);
     });
-  }, []);
+  }, [dispatch]);
 
   if (loading) {
     return <Loading />;

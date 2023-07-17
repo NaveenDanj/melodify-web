@@ -1,6 +1,6 @@
 import app from "src/config/FirebaseConfig";
 import { getFirestore } from "firebase/firestore";
-import { signOut , getAuth , signInWithEmailAndPassword , onAuthStateChanged , createUserWithEmailAndPassword  } from "firebase/auth";
+import {User , signOut , getAuth , signInWithEmailAndPassword , onAuthStateChanged , createUserWithEmailAndPassword  } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
 const auth = getAuth(app);
@@ -12,17 +12,9 @@ export default {
         try{
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
             
-            const data = {
-                email : userCredential.user.email,
-                displayName : '',
-                photoURL : "",
-                uid : userCredential.user.uid,
-                phoneNumber : ""
-            }
-
             return {
                 "success" : true,
-                "user" : data,
+                "user" : _getUserData(userCredential.user),
                 "error" : ''
             }
         
@@ -49,8 +41,6 @@ export default {
         try{
             const user = await createUserWithEmailAndPassword(auth, email, password)
             
-            console.log("user -> " , user.user)
-
             const data = {
                 email : user.user.email,
                 displayName : profileName,
@@ -78,12 +68,31 @@ export default {
     },
 
     logout : async () => {
-        try{
-            await signOut(auth);
-            return true
-        }catch(err){
-            return false
-        }
+
+        return new Promise<boolean>( (resolve , reject) =>{
+            signOut(auth).then(() => {
+                resolve(true)
+            }).catch(() => {
+                reject(false)
+            });
+        })
+
+    },
+
+    getUserData : (user:User) => {
+        return _getUserData(user)
     }
 
 }
+function _getUserData(user: User) {
+    const data = {
+        email : user.email,
+        displayName : '',
+        photoURL : "",
+        uid : user.uid,
+        phoneNumber : ""
+    }
+
+    return data
+}
+
