@@ -24,6 +24,7 @@ import Loading from "./components/global/Loading";
 import { useDispatch } from 'react-redux'
 import { setUser } from 'src/store/slices/UserSlice';
 import AuthService from "src/services/AuthService";
+import CreatePlaylist from "src/pages/App/CreatePlaylist";
 
 
 const darkTheme = createTheme({
@@ -82,6 +83,7 @@ function App() {
             <Route path="queied" element={ <PrivateRoute isAuth={authState} element={<Queied />} />  } />
             <Route path="artist" element={ <PrivateRoute isAuth={authState} element={<ArtistProfile />} /> } />
             <Route path="user" element={ <PrivateRoute isAuth={authState} element={<UserProfile /> } /> } />
+            <Route path="create-playlist" element={ <PrivateRoute isAuth={authState} element={<CreatePlaylist />} /> } />
               {/* <Route path="*" element={<NoPage />} /> */}
           </Route>
 
