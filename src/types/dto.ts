@@ -15,6 +15,7 @@ export interface SearchResults {
     title_short: string;
     title_version: string;
     type:string;
+    destination_path:string;
 }
 
 
@@ -42,4 +43,10 @@ export interface ArtistDTO {
     picture_xl: string;
     tracklist:string;
     type:string;
+}
+
+export interface MusicMetaDataDTO {
+    photoURL: string;
+    title: string;
+    artist: string;
 }

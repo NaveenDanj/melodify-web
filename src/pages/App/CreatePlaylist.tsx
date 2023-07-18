@@ -10,25 +10,54 @@ import CreatePlaylistDialog from 'src/components/dialogs/CreatePlaylistDialog';
 import {useState} from 'react'
 import PlaylistService from 'src/services/PlaylistService';
 import { SearchResults } from 'src/types/dto';
+import ComponentLoading from 'src/components/global/ComponentLoading';
+import { useDispatch } from 'react-redux'
+import { setCurrentlyPlaying , setCurrenlyPlayingMetaData } from 'src/store/slices/MusicPlayerSlice';
+
 
 function CreatePlaylist() {
 
     const [searchString , setSearchString] = useState('');
     const [searchResults , setSearchResults] = useState<SearchResults[]>([]);
+    const [loading , setLoading] = useState(false);
+
+    const dispatch = useDispatch()
+
 
     const handleSearch = async (e:React.ChangeEvent<HTMLInputElement>) => {
         setSearchString(e.target.value)
-        const res = await PlaylistService.searchSong(searchString);
-        // res = res || []
-        console.log(res)
+        setLoading(true)
 
-        if(!res || !res.data){
+        if(searchString == ''){
             setSearchResults([])
+            setLoading(false)
+            return
+        }
+        
+        const res = await PlaylistService.searchSong(searchString);
+
+        if(res == null){
+            setSearchResults([])
+            
+        }else{
+            const seachRes:SearchResults[] = res
+            setSearchResults(seachRes);
         }
 
-        const seachRes:SearchResults[] = res?.data.data;
+        setLoading(false)
 
-        setSearchResults(seachRes);
+    }
+
+    const handlePlayMusic = async (item:SearchResults) =>{
+        const url:string = await PlaylistService.getDownloadLink(item.destination_path);
+        console.log(url);
+        dispatch( setCurrentlyPlaying(url) )
+        dispatch( setCurrenlyPlayingMetaData({
+            photoURL : item.album.cover_small,
+            title : item.title,
+            artist : item.artist.name
+        }) )
+        
     }
 
     return (
@@ -101,7 +130,7 @@ function CreatePlaylist() {
 
                     <div className='tw-mt-10 tw-flex tw-flex-col'>
                         <label className='tw-text-xl tw-font-bold'>Let's find something for your playlist</label>
-                        <div style={{ }} className='tw-p-2 tw-rounded-md tw-w-[320px] tw-bg-[#2C2C2C] tw-my-5'>
+                        <div className='tw-p-2 tw-rounded-md tw-w-[320px] tw-bg-[#2C2C2C] tw-my-5'>
                             <input onChange={(e) => handleSearch(e)} style={{ borderColor : 'None' }} className='tw-bg-[#2C2C2C] tw-w-[300px]' required placeholder='Search for songs or episodes' type='text' />
                         </div>
                     </div>
@@ -109,7 +138,7 @@ function CreatePlaylist() {
                     <div className='tw-mt-2 tw-flex tw-flex-col'>
 
                         {searchResults && searchResults.map((item , index ) =>  (
-                            <div className='tw-flex tw-w-full tw-justify-between tw-rounded tw-mt-1 tw-p-1 hover:tw-bg-[rgba(255,255,255,0.1)] tw-my-auto'>   
+                            <div key={item.id} className='tw-flex tw-w-full tw-justify-between tw-rounded tw-mt-1 tw-p-1 hover:tw-bg-[rgba(255,255,255,0.1)] tw-my-auto'>
                             
                                 <div className='tw-flex tw-gap-4'>       
 
@@ -117,7 +146,7 @@ function CreatePlaylist() {
                                         
                                         <div className='tw-flex '>
                                             <label className='tw-my-auto tw-mr-3'>{index+1}</label>
-                                            <img className=' tw-shadow-lg' style={{ width : 38 , height : 40 }} src={item.album.cover_small} />
+                                            <a href={item.destination_path}><img className=' tw-shadow-lg' style={{ width : 38 , height : 40 }} src={item.album.cover_small} /></a>
                                         </div>
                                         
                                         <div className='tw-flex tw-gap-1 tw-flex-col tw-ml-3'>
@@ -133,12 +162,14 @@ function CreatePlaylist() {
 
                                 <label  className='tw-my-auto tw-font-semibold tw-text-xs tw-text-[#A7A7A7]'>{item.album.title}</label>
 
-                                <button style={{ border : '1px solid rgba(255,255,255,0.2)' }} className="tw-px-3 tw-py-1 tw-my-auto tw-rounded-2xl tw-bg-[rgba(0,0,0,0)]">
+                                <button onClick={() => handlePlayMusic(item)} style={{ border : '1px solid rgba(255,255,255,0.2)' }} className="tw-px-3 tw-py-1 tw-my-auto tw-rounded-2xl tw-bg-[rgba(0,0,0,0)]">
                                     <label className="tw-text-xs tw-font-bold">Add</label>
                                 </button>
 
                             </div>
                         ) )}
+
+                        {loading && <ComponentLoading />}
 
                     </div>
                     

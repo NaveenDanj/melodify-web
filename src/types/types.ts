@@ -20,7 +20,7 @@ export interface PlayList{
 
 export interface Song {
     artist: string;
-    destinationPath: string;
+    destination_path: string;
     originalTitle: string;
     path: string;
     url: string;

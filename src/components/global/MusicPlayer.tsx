@@ -11,8 +11,11 @@ import QueueMusicIcon from '@mui/icons-material/QueueMusic';
 import VolumeDownIcon from '@mui/icons-material/VolumeDown';
 import PauseIcon from '@mui/icons-material/Pause';
 
-
 import { useRef , useState , useEffect } from 'react';
+import { useSelector } from 'react-redux'
+import { RootState } from "src/store/store";
+import { MusicMetaDataDTO } from "src/types/dto";
+
 
 
 
@@ -23,6 +26,9 @@ function MusicPlayer() {
     const [currentTime, setCurrentTime] = useState(0);
     const [totalTime, setTotalTime] = useState(0);
     const [volume, setVolume] = useState(100);
+
+    const currentlyPlaying:string = useSelector((state: RootState) => state.musicPlayer.currentlyPlayingUrl)
+    const currentlyPlayingMetaData:MusicMetaDataDTO | null = useSelector((state: RootState) => state.musicPlayer.metaData)
 
 
     const handlePlay = () => {
@@ -117,19 +123,22 @@ function MusicPlayer() {
                 
                 <div className="tw-flex tw-cursor-pointer tw-w-full tw-justify-between tw-py-2 tw-rounded-md">
                     <div className="tw-ml-2 tw-flex  tw-cursor-pointer">
-                        <img style={{ width : 45 }} className="tw-rounded-md tw-my-auto  tw-cursor-pointer" src="https://i.scdn.co/image/ab67616d00004851a0e7694a73abed7372474d69" />
+                        <img style={{ width : 45 }} className="tw-rounded-md tw-my-auto  tw-cursor-pointer" src={currentlyPlayingMetaData?.photoURL} />
                     
                         <div className="tw-flex tw-flex-col tw-my-auto tw-ml-3">
-                            <label className='tw-cursor-pointer tw-text-sm tw-font-thin'>Eminem</label>
+                            <label className='tw-cursor-pointer tw-text-sm tw-font-thin'>{currentlyPlayingMetaData?.title}</label>
                             <div className=' tw-cursor-pointer'>
-                                <label className="tw-cursor-pointer tw-text-xs tw-text-slate-400">Eminem</label>
+                                <label className="tw-cursor-pointer tw-text-xs tw-text-slate-400">{currentlyPlayingMetaData?.artist}</label>
                             </div>
                         </div>
                     </div>
 
-                    <div className="tw-my-auto">
-                        <FavoriteBorderIcon />
-                    </div>
+                    {currentlyPlayingMetaData && (
+                        <div className="tw-my-auto">
+                            <FavoriteBorderIcon />
+                        </div>
+                    )}
+
 
                 </div>
 
@@ -139,7 +148,7 @@ function MusicPlayer() {
             
             <div className="tw-flex tw-justify-center tw-flex-grow tw-mx-2">
 
-                <audio ref={audioRef} src="/music/sample.m4a" />
+                <audio ref={audioRef} src={currentlyPlaying} />
                 
                 <div className="tw-flex tw-flex-col tw-flex-grow tw-max-w-[550px] tw-my-auto">
                     
