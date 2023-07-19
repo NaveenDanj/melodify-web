@@ -5,7 +5,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import PopularItem from 'src/components/artist/PopularItem';
+// import PopularItem from 'src/components/artist/PopularItem';
 import Discography from 'src/components/artist/Discography';
 
 
@@ -82,7 +82,7 @@ function ArtistProfile() {
 
                     <div className='tw-flex-1 '>
                         <label className="tw-ml-2 tw-my-auto hover:tw-cursor-pointer tw-text-2xl tw-font-bold">Popular</label>
-                        <PopularItem />
+                        {/* <PopularItem />
                         <PopularItem />
                         <PopularItem />
                         <PopularItem />
@@ -92,7 +92,7 @@ function ArtistProfile() {
                         <PopularItem />
                         <PopularItem />
                         <PopularItem />
-                        <PopularItem />
+                        <PopularItem /> */}
 
                     </div>
 

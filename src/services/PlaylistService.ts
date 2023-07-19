@@ -14,9 +14,13 @@ export default {
     searchSong : async (queryString:string) => {
 
         try{
-            const url = `https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=${queryString}`;
-            // const url = `https://api.deezer.com/search?q=${queryString}`;
-            const response = await axios.get(url);
+            // const url = `https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=${queryString}`;
+            const url = `https://api.deezer.com/search?q=${queryString}`;
+            const response = await axios.get(url , {
+                headers : {
+                    "Access-Control-Allow-Origin" : "*"
+                }
+            });
             const res:SearchResults[] = response.data.data;
             const res_out:SearchResults[] = [];
 
@@ -63,7 +67,11 @@ export default {
         try{
             // const url = `https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=${queryString}`;
             const url = `https://api.deezer.com/search?q=${queryString}`;
-            const response = await axios.get(url);
+            const response = await axios.get(url , {
+                headers : {
+                    "Access-Control-Allow-Origin" : "localhost"
+                }
+            });
             const res:SearchResults[] = response.data.data;
             const res_out:SearchResults[] = [];
 
