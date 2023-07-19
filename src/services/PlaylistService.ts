@@ -1,5 +1,5 @@
 import app from "src/config/FirebaseConfig";
-import {getFirestore } from "firebase/firestore";
+import {getCountFromServer, getFirestore } from "firebase/firestore";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import axios from "axios";
 import { SearchResults } from "src/types/dto";
@@ -12,8 +12,6 @@ const db = getFirestore(app);
 export default {
 
     searchSong : async (queryString:string) => {
-        
-        console.log('search string -> ' , queryString);
 
         try{
             const url = `https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=${queryString}`;
@@ -58,6 +56,40 @@ export default {
         const storage = getStorage();
         const pathReference = ref(storage, path);
         return getDownloadURL(pathReference)
+    },
+
+    mainSearch : async (queryString:string) => {
+
+        try{
+            // const url = `https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=${queryString}`;
+            const url = `https://api.deezer.com/search?q=${queryString}`;
+            const response = await axios.get(url);
+            const res:SearchResults[] = response.data.data;
+            const res_out:SearchResults[] = [];
+
+            for(let i = 0; i < res.length; i++){
+                const q = query(collection(db, "songs"), where("original_title", "==", res[i].title ));
+                const snapshot = await getCountFromServer(q);
+                
+                
+                if(snapshot.data().count > 0 ){
+                    res[i].destination_path = 'have path'
+                }else{
+                    res[i].destination_path = ''
+                }
+
+                res_out.push(res[i])
+
+            }
+
+            return res_out;
+        
+        }catch(err){
+            console.log(err)
+            return []
+        }
+
+
     }
 
 }

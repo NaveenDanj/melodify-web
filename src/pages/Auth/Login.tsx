@@ -34,18 +34,22 @@ function Login() {
     if(!email || !password){
       setError("Email and password fields are required")
       setLoading(false)
+      return
     }
 
     const res = await AuthService.login(email , password)
 
     if(res.success == false ){
       setError('Username or password is incorrect.')
+      setLoading(false)
+      return
     }
 
     setLoading(false)
     dispatch(setUser(res.user))
-
     navigate('/')
+
+    
   }
 
   return (
