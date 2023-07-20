@@ -84,9 +84,9 @@ export default {
     }
 
 }
-function _getUserData(user: User) {
+function _getUserData(user:User) {
     const data = {
-        email : user.email,
+        email : user.email == null ? '' : user.email,
         displayName : '',
         photoURL : "",
         uid : user.uid,

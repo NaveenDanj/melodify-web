@@ -2,9 +2,18 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface UserState {
-  userData: unknown;
+  userData: UserData | null;
   additionalData : unknown;
 }
+
+export interface UserData {
+  email :string;
+  displayName: string;
+  photoURL: string;
+  uid: string;
+  phoneNumber : string;
+}
+
 
 const initialState: UserState = {
   userData: null,
@@ -15,7 +24,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser: (state , action: PayloadAction<unknown>) => {
+    setUser: (state , action: PayloadAction<UserData>) => {
       state.userData = action.payload
     },
 

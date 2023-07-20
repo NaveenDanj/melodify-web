@@ -34,7 +34,7 @@ const darkTheme = createTheme({
 });
 
 interface UserDTO {
-  email: string | null;
+  email: string;
   displayName: string;
   photoURL: string;
   uid: string;

@@ -13,6 +13,9 @@ import PlaylistService from 'src/services/PlaylistService';
 import { useState } from 'react';
 import { SearchResults } from 'src/types/dto';
 import ComponentLoading from 'src/components/global/ComponentLoading';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/store/store';
+import { UserState } from 'src/store/slices/UserSlice';
 
 function Search() {
 
@@ -20,12 +23,14 @@ function Search() {
     const [searchResults , setSearchResults] = useState<SearchResults[]>([]);
     const [loading , setLoading] = useState(false);
     const [topResult , setTopResult] = useState<SearchResults | null>(null);
+    const user:UserState = useSelector((state: RootState) => state.user)
+
 
     // const dispatch = useDispatch()
 
-    const handleSearch = async (e:React.ChangeEvent<HTMLInputElement>) => {
-        setSearchString(e.target.value)
+    const handleSearch = async () => {
         setTopResult(null)
+        setSearchResults([])
         setLoading(true)
 
         if(searchString == ''){
@@ -34,7 +39,7 @@ function Search() {
             return
         }
         
-        const res = await PlaylistService.mainSearch(searchString);
+        const res = await PlaylistService.mainSearch(user , searchString);
 
         if(res == null){
             setSearchResults([])
@@ -51,6 +56,16 @@ function Search() {
         }
         setLoading(false)
     }
+
+    const handleKeyPress = (event:React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            handleSearch()
+        }
+    };
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchString(event.target.value);
+    };
     
     return (
         <div className="tw-overflow-y-auto tw-h-full tw-bg-gradient-to-b tw-p-2 tw-from-[#212121] tw-to-[#121212] tw-w-full tw-rounded-md">
@@ -72,7 +87,7 @@ function Search() {
                 <div className='tw-ml-4 tw-flex tw-flex-grow'>
                     <div style={{ borderRadius : 30 }} className='tw-p-3 tw-gap-2 tw-bg-[#3B3B3B] tw-flex tw-min-w-[100%] lg:tw-min-w-[350px] tw-my-auto'>
                         <SearchIcon />
-                        <input onChange={(e) => handleSearch(e)} style={{ borderColor : 'None' }} className='tw-w-full' placeholder='What do you want to listen to?' type='text' />
+                        <input onKeyPress={handleKeyPress} onChange={(e) => handleChange(e)} style={{ borderColor : 'None' }} className='tw-w-full' placeholder='What do you want to listen to?' type='text' />
                     </div>
                 </div>
 
@@ -111,7 +126,7 @@ function Search() {
                             <div className='tw-mt-3 tw-flex tw-justify-between'>
                                 
                                 <div className='tw-flex tw-gap-3'>
-                                    <span className='tw-mr-1 tw-text-[9px] tw-bg-[#AAAAAA] tw-rounded-sm tw-mx-auto tw-my-auto tw-justify-start tw-p-1 tw-text-black'>{topResult.destination_path == '' ? "Not available" : "Available" }</span>
+                                    <span className='tw-text-[9px] tw-bg-[#AAAAAA] tw-rounded-sm tw-mx-auto tw-my-auto tw-p-1 tw-justify-start tw-text-black'>{topResult.destination_path == '' ? "Not available" : "Available" }</span>
                                     <label className='hover:tw-cursor-pointer hover:tw-underline tw-text-xs tw-my-auto tw-text-slate-200'>{topResult.artist.name}</label>
                                     <Chip className='hover:tw-bg-[#2A2A2A] tw-my-auto tw-cursor-pointer' label="Song"  />
                                 </div>

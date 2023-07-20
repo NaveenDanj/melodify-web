@@ -27,7 +27,22 @@ export interface Song {
     meta : object;
 }
 
+export interface Search {
+    user_id : string;
+    search_query : string;
+    timestamp: number;
+    result_count: number;
+}
 
-
-
+export interface SearchResult {
+    song_id : number;
+    title: string;
+    count : number;
+    search_string: string;
+    artist_id : number;
+    artist_name : string;
+    scraper_string: string | null;
+    downloaded : boolean;
+    available: boolean;
+}
 
