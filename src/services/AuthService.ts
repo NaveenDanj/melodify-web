@@ -2,6 +2,7 @@ import app from "src/config/FirebaseConfig";
 import { getFirestore } from "firebase/firestore";
 import {User , signOut , getAuth , signInWithEmailAndPassword , onAuthStateChanged , createUserWithEmailAndPassword  } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { UserData } from "src/types/dto";
 
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -12,9 +13,20 @@ export default {
         try{
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
             
+            const _userdata:UserData =  _getUserData(userCredential.user)
+
+
+            const userIfNull:UserData = {
+                email: "",
+                displayName: "",
+                photoURL: "",
+                uid: "",
+                phoneNumber: ""
+            }
+
             return {
                 "success" : true,
-                "user" : _getUserData(userCredential.user),
+                "user" : _getUserData(userCredential.user) == null ? userIfNull : _userdata,
                 "error" : ''
             }
         

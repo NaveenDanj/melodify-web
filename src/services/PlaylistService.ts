@@ -96,8 +96,6 @@ export default {
                     const q = query(collection(db, "search_results"), where("song_id", "==", res[i].id ));
                     const snapshot = await getCountFromServer(q);
                     
-                    console.log('res is -> ' , snapshot.data().count)
-
                     if(snapshot.data().count == 0 ){
 
                         const song:SearchResult = {
@@ -108,14 +106,14 @@ export default {
                             artist_id: res[i].artist.id,
                             artist_name: res[i].artist.name,
                             scraper_string: res[i].artist.name + " " + res[i].title,
-                            downloaded : false,
+                            downloaded : res[i].destination_path == '' ? false : true,
                             available : snapshot.data().count == 0 ? false : true
                         }
 
                         await setDoc( doc(db , "search_results", res[i].id+'') , song);
                         
                     }else{
-                        console.log('already there!')
+
                         const ref = doc(db, "search_results", res[i].id+'');
                         
                         await updateDoc(ref, {

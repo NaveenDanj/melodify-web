@@ -46,9 +46,10 @@ function Login() {
     }
 
     setLoading(false)
-    dispatch(setUser(res.user))
-    navigate('/')
 
+    if(res.user) dispatch(setUser(res.user))
+
+    navigate('/')
     
   }
 
