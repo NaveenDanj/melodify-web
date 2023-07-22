@@ -11,28 +11,27 @@ import {useState} from 'react'
 import PlaylistService from 'src/services/PlaylistService';
 import { SearchResults } from 'src/types/dto';
 import ComponentLoading from 'src/components/global/ComponentLoading';
-import { useDispatch } from 'react-redux'
-import { setCurrentlyPlaying , setCurrenlyPlayingMetaData } from 'src/store/slices/MusicPlayerSlice';
+
 
 
 function CreatePlaylist() {
 
     const [searchString , setSearchString] = useState('');
     const [searchResults , setSearchResults] = useState<SearchResults[]>([]);
+    const [selectedTracks , setSelectedTracks] = useState<SearchResults[]>([]);
     const [loading , setLoading] = useState(false);
-
-    const dispatch = useDispatch()
 
 
     const handleSearch = async (e:React.ChangeEvent<HTMLInputElement>) => {
-        setSearchString(e.target.value)
-        setLoading(true)
 
+        setSearchString(e.target.value)
+        
         if(searchString == ''){
             setSearchResults([])
-            setLoading(false)
             return
         }
+        
+        setLoading(true)
         
         const res = await PlaylistService.searchSong(searchString);
 
@@ -41,6 +40,28 @@ function CreatePlaylist() {
             
         }else{
             const seachRes:SearchResults[] = res
+
+            for(let i = 0; i < seachRes.length; i++){
+                
+                let found = false;
+
+                for(let j = 0; j < selectedTracks.length; j++){
+                    
+                    if(seachRes[i].id == selectedTracks[j].id){
+                        found = true
+                        break;
+                    }
+        
+                }
+                
+                if(found){
+                    seachRes[i].visible = false
+                }else{
+                    seachRes[i].visible = true
+                }
+
+            }
+
             setSearchResults(seachRes);
         }
 
@@ -48,16 +69,14 @@ function CreatePlaylist() {
 
     }
 
-    const handlePlayMusic = async (item:SearchResults) =>{
-        const url:string = await PlaylistService.getDownloadLink(item.destination_path);
-        console.log(url);
-        dispatch( setCurrentlyPlaying(url) )
-        dispatch( setCurrenlyPlayingMetaData({
-            photoURL : item.album.cover_small,
-            title : item.title,
-            artist : item.artist.name
-        }) )
-        
+    const handleAdd = async (item:SearchResults) =>{
+        console.log("item is -> " , item)
+        setSelectedTracks(oldArray => [...oldArray, item]);
+        setSearchResults(searchResults.filter(_item => _item.id !== item.id));
+    }
+
+    const handleRemove = async (item:SearchResults) => {
+        setSelectedTracks(selectedTracks.filter(_item => _item.id !== item.id));
     }
 
     return (
@@ -92,7 +111,7 @@ function CreatePlaylist() {
             <div style={{ height : 'calc(100vh - 56px)' }} className=' tw-bg-[#212121]  tw-overflow-y-auto '>
 
                 <div className='tw-w-full tw-h-[400px] tw-bg-gradient-to-b tw-from-[#C9052B] tw-to-[#212121]'>
-                    <CreatePlaylistDialog />
+                    <CreatePlaylistDialog songs={selectedTracks} />
                 </div>
 
                 <div className="tw-relative tw-p-5 tw-top-[-160px]" >
@@ -113,14 +132,17 @@ function CreatePlaylist() {
 
                             <label className='tw-relative tw-left-[80px] tw-text-sm tw-text-slate-300'>Album</label>
                             <label className='tw-relative tw-left-[40px] tw-text-sm tw-text-slate-300'>Date added</label>
-                            <AccessTimeIcon className='tw-text-sm tw-text-slate-300' />
+                            <AccessTimeIcon sx={{ fontSize : 18 }} className='tw-text-sm tw-text-slate-300' />
 
                         </div>
 
-                    <PlaylistItem />
-                    <PlaylistItem />
-                    <PlaylistItem />
-                    <PlaylistItem />
+                        { selectedTracks.length == 0 && (
+                            <div className='tw-w-full  tw-flex tw-justify-center tw-items-center tw-h-[100px]'>
+                                <h3>No tracks selected yet.</h3>
+                            </div>
+                        )}
+
+                        {selectedTracks.map( (item , index) => <PlaylistItem onFunctionTrigger={handleRemove} item={item} index={index} key={index} /> )}
 
                     </div>
 
@@ -162,9 +184,13 @@ function CreatePlaylist() {
 
                                 <label  className='tw-my-auto tw-font-semibold tw-text-xs tw-text-[#A7A7A7]'>{item.album.title}</label>
 
-                                <button onClick={() => handlePlayMusic(item)} style={{ border : '1px solid rgba(255,255,255,0.2)' }} className="tw-px-3 tw-py-1 tw-my-auto tw-rounded-2xl tw-bg-[rgba(0,0,0,0)]">
-                                    <label className="tw-text-xs tw-font-bold">Add</label>
-                                </button>
+
+                                {item.visible == true && (
+                                    <button onClick={() => handleAdd(item)} style={{ border : '1px solid rgba(255,255,255,0.2)' }} className="tw-px-3 tw-py-1 tw-my-auto tw-rounded-2xl tw-bg-[rgba(0,0,0,0)]">
+                                        <label className="tw-text-xs tw-font-bold">Add</label>
+                                    </button>
+                                )}
+
 
                             </div>
                         ) )}

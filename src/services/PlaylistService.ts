@@ -2,11 +2,11 @@ import app from "src/config/FirebaseConfig";
 import {addDoc, doc, getCountFromServer, getFirestore, increment, setDoc, updateDoc } from "firebase/firestore";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import axios from "axios";
-import { SearchResults } from "src/types/dto";
+import { SearchResults, UserData } from "src/types/dto";
 
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { UserState } from "src/store/slices/UserSlice";
-import { Search, SearchResult } from "src/types/types";
+import { PlayList, Search, SearchResult } from "src/types/types";
 
 // const auth = getAuth(app);
 const db = getFirestore(app);
@@ -148,6 +148,47 @@ export default {
             return []
         }
 
+
+    },
+
+    createPlaylist : async (user:UserData | null , name:string , description:string , songs:SearchResults[]) => {
+
+        try{
+
+            const out:string[] = []
+
+            for(let i = 0;  i < songs.length; i++){
+
+                const q = query(collection(db, "songs"), where("destination_path", "==" , songs[i].destination_path));
+    
+                const querySnapshot = await getDocs(q);
+                let found = false;
+                
+                querySnapshot.forEach( async(doc) => {
+                    if(found == false){
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-ignore
+                        found = true;
+                        out.push(doc.id)
+                    }
+                });
+
+            }
+
+
+            const song:PlayList = {
+                name: name,
+                ownedBy: user?.uid == undefined ? '' : user?.uid,
+                songs: out,
+                description
+            }
+    
+            await addDoc(collection(db, "playlist"), song);
+            return song
+
+        }catch(err){
+            return null
+        }
 
     }
 

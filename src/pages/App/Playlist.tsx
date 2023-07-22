@@ -7,7 +7,7 @@ import DownloadingIcon from '@mui/icons-material/Downloading';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import PlaylistItem from 'src/components/playlist/PlaylistItem';
+// import PlaylistItem from 'src/components/playlist/PlaylistItem';
 import AddItem from 'src/components/playlist/AddItem';
 
 
@@ -90,6 +90,7 @@ function Playlist() {
 
                     </div>
 
+                   {/* <PlaylistItem />
                    <PlaylistItem />
                    <PlaylistItem />
                    <PlaylistItem />
@@ -106,8 +107,7 @@ function Playlist() {
                    <PlaylistItem />
                    <PlaylistItem />
                    <PlaylistItem />
-                   <PlaylistItem />
-                   <PlaylistItem />
+                   <PlaylistItem /> */}
 
                 </div>
 

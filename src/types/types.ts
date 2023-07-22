@@ -12,10 +12,10 @@ export interface UserAdditionalData {
 }
 
 export interface PlayList{
-    uid: string;
     name: string;
     ownedBy: string;
-    songs : Song[]
+    songs : string[],
+    description: string
 }
 
 export interface Song {

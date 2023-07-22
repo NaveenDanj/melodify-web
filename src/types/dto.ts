@@ -16,6 +16,7 @@ export interface SearchResults {
     title_version: string;
     type:string;
     destination_path:string;
+    visible:boolean | undefined
 }
 
 
