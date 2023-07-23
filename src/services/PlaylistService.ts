@@ -1,5 +1,5 @@
 import app from "src/config/FirebaseConfig";
-import {addDoc, doc, getCountFromServer, getFirestore, increment, setDoc, updateDoc } from "firebase/firestore";
+import {DocumentData, addDoc, doc, getCountFromServer, getDoc, getFirestore, increment, setDoc, updateDoc } from "firebase/firestore";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import axios from "axios";
 import { SearchResults, UserData } from "src/types/dto";
@@ -185,6 +185,64 @@ export default {
     
             await addDoc(collection(db, "playlist"), song);
             return song
+
+        }catch(err){
+            return null
+        }
+
+    },
+
+    getPlaylist: async (user: UserData | null , playlistId:string | null) => {
+
+        try{
+
+            if(!playlistId){
+                return null
+            }
+
+            const ref = doc(db, "playlist", playlistId);
+            const snap = await getDoc(ref);
+            
+            if (!snap.exists()) {
+                return null
+            }
+            
+            const data = snap.data()
+            
+            if(!data){
+                return null
+            }
+            
+            if(data.ownedBy != user?.uid){
+                return null
+            }
+
+            const out = {
+                playlistCover : '',
+                playlistData : data,
+                songs : [] as DocumentData[]
+            }
+
+            // fetch song data
+            for(let i = 0; i < data.songs.length; i++){
+                
+                const ref = doc(db, "songs", data.songs[i]);
+                const snap = await getDoc(ref);
+                const songData = snap.data()
+
+                if(!songData){
+                    continue
+                }
+
+                if(i == 0){
+                    out.playlistCover = songData.meta.album.cover_medium
+                }
+
+                out.songs.push(songData)
+
+            }
+
+            return out
 
         }catch(err){
             return null

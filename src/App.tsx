@@ -25,6 +25,7 @@ import { useDispatch } from 'react-redux'
 import { setUser } from 'src/store/slices/UserSlice';
 import AuthService from "src/services/AuthService";
 import CreatePlaylist from "src/pages/App/CreatePlaylist";
+import Error from "src/pages/App/Error";
 
 
 const darkTheme = createTheme({
@@ -84,6 +85,7 @@ function App() {
             <Route path="artist" element={ <PrivateRoute isAuth={authState} element={<ArtistProfile />} /> } />
             <Route path="user" element={ <PrivateRoute isAuth={authState} element={<UserProfile /> } /> } />
             <Route path="create-playlist" element={ <PrivateRoute isAuth={authState} element={<CreatePlaylist />} /> } />
+            <Route path="error" element={ <Error /> } />
               {/* <Route path="*" element={<NoPage />} /> */}
           </Route>
 

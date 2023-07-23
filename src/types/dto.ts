@@ -1,3 +1,5 @@
+import { DocumentData } from "firebase/firestore";
+
 export interface SearchResults {
     album: AlbumDTO ;
     artist: ArtistDTO;
@@ -58,5 +60,18 @@ export interface UserData {
     photoURL: string;
     uid: string;
     phoneNumber : string;
-  }
-  
+}
+
+
+
+// const out = {
+//     playlistCover : '',
+//     playlistData : data,
+//     songs : [] as DocumentData[]
+// }
+
+export interface FetchPlaylistDTO {
+    playlistCover : string;
+    playlistData : DocumentData;
+    songs : DocumentData[]
+}
