@@ -35,6 +35,7 @@ function MusicPlayer() {
     const isPlaylistPlayed: boolean = useSelector((state: RootState) => state.musicPlayer.currentPlayingPlaylistState)
     const dispath = useDispatch()
 
+
     useEffect(() => {
         dispath(setCurrentlyPlaying(playlist?.songs[playlistIndex].url))
         dispath(setCurrenlyPlayingMetaData({
@@ -175,7 +176,7 @@ function MusicPlayer() {
                         </div>
                     </div>
 
-                    {currentlyPlayingMetaData && (
+                    {currentlyPlaying != '' && currentlyPlaying != undefined && (
                         <div className="tw-my-auto">
                             <FavoriteBorderIcon sx={{ fontSize: 16 }} />
                         </div>

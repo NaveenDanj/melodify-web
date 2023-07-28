@@ -192,6 +192,82 @@ export default {
 
     },
 
+
+    updatePlaylistSongs : async (id : string | null ,songs:SearchResults[]) => {
+        
+        try{
+
+            if(!id){
+                return false
+            }
+
+            const out:string[] = []
+
+            for(let i = 0;  i < songs.length; i++){
+                console.log(songs[i])
+                const q = query(collection(db, "songs"), where("destination_path", "==" , songs[i].destination_path) );
+    
+                const querySnapshot = await getDocs(q);
+                let found = false;
+                
+                querySnapshot.forEach( async(doc) => {
+                    if(found == false){
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-ignore
+                        found = true;
+                        out.push(doc.id)
+                    }
+                });
+
+            }
+
+            const ref = doc(db, "playlist", id);
+
+            await updateDoc(ref, {
+                songs: out
+            });
+
+            console.log('songs -> ' , out)
+
+            return true
+
+        }catch(err){
+            console.log(err)
+            return false
+        }
+
+    },
+
+    updatePlaylistData : async (id : string | null, name:string , description:string) => {
+
+        try{
+
+            console.log('param id -> ' , id)
+
+            if(!id){
+                return false
+            }
+
+            const gotId = id == null ? '' : id
+
+            console.log('id -> ' , gotId)
+
+            const ref = doc(db, "playlist", gotId);
+
+            await updateDoc(ref, {
+                name: name,
+                description : description
+            });
+
+            return true
+
+        }catch(err){
+            console.log(err)
+            return false;
+        }
+
+    },
+
     getPlaylist: async (user: UserData | null , playlistId:string | null) => {
 
         try{

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes , Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Home from "src/pages/App/Home";
@@ -14,11 +14,11 @@ import Login from "src/pages/Auth/Login";
 import AuthLayout from "src/layouts/AuthLayout";
 import Register from "src/pages/Auth/Register";
 import PrivateRoute from "src/components/routes/ProtectedRoute";
-import {useEffect , useState} from 'react'
+import { useEffect, useState } from 'react'
 
 
 import app from "src/config/FirebaseConfig";
-import { getAuth  , onAuthStateChanged   } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Loading from "./components/global/Loading";
 
 import { useDispatch } from 'react-redux'
@@ -26,6 +26,7 @@ import { setUser } from 'src/store/slices/UserSlice';
 import AuthService from "src/services/AuthService";
 import CreatePlaylist from "src/pages/App/CreatePlaylist";
 import Error from "src/pages/App/Error";
+import EditPlaylist from "./pages/App/EditPlaylist";
 
 
 const darkTheme = createTheme({
@@ -45,8 +46,8 @@ interface UserDTO {
 
 function App() {
 
-  const [authState , setAuthState] = useState(false)
-  const [loading , setLoading] = useState(true)
+  const [authState, setAuthState] = useState(false)
+  const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
 
 
@@ -56,7 +57,7 @@ function App() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setAuthState(true);
-        const data:UserDTO = AuthService.getUserData(user)
+        const data: UserDTO = AuthService.getUserData(user)
         dispatch(setUser(data))
       } else {
         setAuthState(false);
@@ -78,20 +79,21 @@ function App() {
         <Routes>
 
           <Route path="/" element={<AppLayout />}>
-            <Route index element={ <PrivateRoute isAuth={authState} element={<Home />} /> } />
-            <Route path="search" element={ <PrivateRoute isAuth={authState} element={<Search />} />  } />
-            <Route path="playlist" element={ <PrivateRoute isAuth={authState} element={<Playlist />} />  } />
-            <Route path="queied" element={ <PrivateRoute isAuth={authState} element={<Queied />} />  } />
-            <Route path="artist" element={ <PrivateRoute isAuth={authState} element={<ArtistProfile />} /> } />
-            <Route path="user" element={ <PrivateRoute isAuth={authState} element={<UserProfile /> } /> } />
-            <Route path="create-playlist" element={ <PrivateRoute isAuth={authState} element={<CreatePlaylist />} /> } />
-            <Route path="error" element={ <Error /> } />
-              {/* <Route path="*" element={<NoPage />} /> */}
+            <Route index element={<PrivateRoute isAuth={authState} element={<Home />} />} />
+            <Route path="search" element={<PrivateRoute isAuth={authState} element={<Search />} />} />
+            <Route path="playlist" element={<PrivateRoute isAuth={authState} element={<Playlist />} />} />
+            <Route path="queied" element={<PrivateRoute isAuth={authState} element={<Queied />} />} />
+            <Route path="artist" element={<PrivateRoute isAuth={authState} element={<ArtistProfile />} />} />
+            <Route path="user" element={<PrivateRoute isAuth={authState} element={<UserProfile />} />} />
+            <Route path="create-playlist" element={<PrivateRoute isAuth={authState} element={<CreatePlaylist />} />} />
+            <Route path="edit-playlist" element={<PrivateRoute isAuth={authState} element={<EditPlaylist />} />} />
+            <Route path="error" element={<Error />} />
+            {/* <Route path="*" element={<NoPage />} /> */}
           </Route>
 
           <Route path="/auth" element={<AuthLayout />}>
-            <Route path="login" element={ <Login /> } />
-            <Route path="register" element={ <Register /> } />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
           </Route>
 
         </Routes>
@@ -100,7 +102,7 @@ function App() {
 
     </ThemeProvider>
   )
-  
+
 
 }
 
