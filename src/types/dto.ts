@@ -62,16 +62,14 @@ export interface UserData {
     phoneNumber : string;
 }
 
-
-
-// const out = {
-//     playlistCover : '',
-//     playlistData : data,
-//     songs : [] as DocumentData[]
-// }
-
 export interface FetchPlaylistDTO {
     playlistCover : string;
     playlistData : DocumentData;
     songs : DocumentData[]
+}
+
+export interface PlaylistDTO {
+    playlistCover: string;
+    playlistData: DocumentData;
+    songs: DocumentData[]
 }

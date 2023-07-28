@@ -238,8 +238,9 @@ export default {
                     out.playlistCover = songData.meta.album.cover_medium
                 }
 
+                const url = await _getDownloadLink(songData.destination_path)
+                songData.url = url
                 out.songs.push(songData)
-
             }
 
             return out
@@ -250,4 +251,10 @@ export default {
 
     }
 
+}
+
+function _getDownloadLink(path:string){
+    const storage = getStorage();
+    const pathReference = ref(storage, path);
+    return getDownloadURL(pathReference)
 }

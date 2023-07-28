@@ -1,17 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { MusicMetaDataDTO } from 'src/types/dto';
-
+import { MusicMetaDataDTO, PlaylistDTO } from 'src/types/dto';
 
 
 export interface MusicPlayerState {
-    currentlyPlayingUrl: string;
-    metaData: MusicMetaDataDTO | null;
+  currentlyPlayingUrl: string;
+  metaData: MusicMetaDataDTO | null;
+  PlaylistData : PlaylistDTO | null
+  currentPlayingPlaylistState : boolean
 }
 
 const initialState: MusicPlayerState = {
-    currentlyPlayingUrl: '',
-    metaData : null
+  currentlyPlayingUrl: '',
+  metaData : null,
+  PlaylistData : null,
+  currentPlayingPlaylistState : false
 }
 
 export const musicPlayerSlice = createSlice({
@@ -24,11 +27,23 @@ export const musicPlayerSlice = createSlice({
     },
 
     setCurrenlyPlayingMetaData: (state , action: PayloadAction<MusicMetaDataDTO>) => {
-        state.metaData = action.payload
+      state.metaData = action.payload
+    },
+
+    setPlaylistData: (state , action:PayloadAction<PlaylistDTO | null>) => {
+      state.PlaylistData = action.payload
+    },
+
+    stopPlayPlaylist : (state) => {
+      state.currentPlayingPlaylistState = false
+    },
+
+    playPlaylist : (state) => {
+      state.currentPlayingPlaylistState = true
     }
 
   },
 })
 
-export const { setCurrentlyPlaying , setCurrenlyPlayingMetaData } = musicPlayerSlice.actions
+export const { setCurrentlyPlaying , setCurrenlyPlayingMetaData , setPlaylistData , stopPlayPlaylist , playPlaylist } = musicPlayerSlice.actions
 export default musicPlayerSlice.reducer
