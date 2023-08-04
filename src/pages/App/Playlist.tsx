@@ -27,6 +27,8 @@ function Playlist() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user: UserData | null = useSelector((state: RootState) => state.user.userData)
+    const isPlaylistPlayed: boolean = useSelector((state: RootState) => state.musicPlayer.currentPlayingPlaylistState)
+
     const [loading, setLoading] = useState(true);
     const [playlistItems, setPlaylistItems] = useState<DocumentData[]>([]);
     const [playlist, setPlaylist] = useState<PlaylistDTO | null>(null)
@@ -159,7 +161,7 @@ function Playlist() {
                     <div className='tw-flex tw-gap-10'>
 
                         <button onClick={handleLoadPlaylist} style={{ borderRadius: 25, width: 50, height: 50 }} className='tw-flex tw-justify-center tw-items-center tw-bg-[#1FDF64] tw-my-auto'>
-                            {playlistPlay == false ? (<PlayCircleFilledIcon sx={{ color: "white" }} />) : (<PauseIcon sx={{ color: "white" }} />)}
+                            {isPlaylistPlayed == false ? (<PlayCircleFilledIcon sx={{ color: "white" }} />) : (<PauseIcon sx={{ color: "white" }} />)}
                         </button>
 
                         <DownloadingIcon sx={{ fontSize: 35 }} className='tw-cursor-pointer tw-my-auto' />

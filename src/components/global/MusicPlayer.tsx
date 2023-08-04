@@ -15,7 +15,7 @@ import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from "src/store/store";
 import { MusicMetaDataDTO } from "src/types/dto";
-import { setCurrenlyPlayingMetaData, setCurrentlyPlaying } from "src/store/slices/MusicPlayerSlice";
+import { playPlaylist, setCurrenlyPlayingMetaData, setCurrentlyPlaying, stopPlayPlaylist } from "src/store/slices/MusicPlayerSlice";
 
 
 
@@ -33,6 +33,7 @@ function MusicPlayer() {
     const currentlyPlayingMetaData: MusicMetaDataDTO | null = useSelector((state: RootState) => state.musicPlayer.metaData)
     const playlist = useSelector((state: RootState) => state.musicPlayer.PlaylistData)
     const isPlaylistPlayed: boolean = useSelector((state: RootState) => state.musicPlayer.currentPlayingPlaylistState)
+    const currentPlayingPlaylistState = useSelector((state: RootState) => state.musicPlayer.currentPlayingPlaylistState)
     const dispath = useDispatch()
 
 
@@ -45,16 +46,26 @@ function MusicPlayer() {
         } as MusicMetaDataDTO))
     }, [dispath, playlist, playlistIndex])
 
+    useEffect(() => {
+        if (currentPlayingPlaylistState) {
+            handlePlay()
+        } else {
+            handlePause()
+        }
+    }, [currentPlayingPlaylistState])
+
     const handlePlay = () => {
         // @ts-ignore
         audioRef.current.play();
-        setIsPlaying(true);
+        dispath(playPlaylist())
+        setIsPlaying(currentPlayingPlaylistState);
     };
 
     const handlePause = () => {
         // @ts-ignore
         audioRef.current.pause();
-        setIsPlaying(false);
+        dispath(stopPlayPlaylist())
+        setIsPlaying(currentPlayingPlaylistState);
     };
 
     const handleSkipForward = () => {
