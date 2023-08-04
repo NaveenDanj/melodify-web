@@ -73,3 +73,10 @@ export interface PlaylistDTO {
     playlistData: DocumentData;
     songs: DocumentData[]
 }
+
+export interface OutListDTO {
+    playlistCover : string;
+    playlistData: DocumentData;
+    songs: DocumentData[];
+    id:string;
+}

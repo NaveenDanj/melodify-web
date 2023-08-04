@@ -7,10 +7,36 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Chip } from '@mui/material';
 import PlaylistCard from 'src/components/sidebar/PlaylistCard';
 import AuthService from 'src/services/AuthService';
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import PlaylistService from 'src/services/PlaylistService';
+import { OutListDTO, UserData } from 'src/types/dto';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/store/store';
 
 
 function Sidebar() {
+
+    const user: UserData | null = useSelector((state: RootState) => state.user.userData)
+    const [playlists, setPlaylist] = useState<OutListDTO[]>([])
+
+    
+    useEffect(() => {
+        
+        const fetchPlaylists = async () => {
+    
+            if (!user) {
+                return
+            }
+    
+            const res = await PlaylistService.getUserPlaylist(user.uid)
+            console.log(res)
+            setPlaylist(res)
+        }
+        
+        fetchPlaylists()
+
+    }, [user])
 
     const navigate = useNavigate();
 
@@ -54,11 +80,11 @@ function Sidebar() {
                 <div style={{ height: 'calc(100vh - 250px)' }} className=' tw-flex tw-flex-col tw-mt-5 tw-pb-5'>
 
                     <div className='tw-flex tw-gap-2'>
-                        <Chip className='hover:tw-bg-[#2A2A2A] tw-cursor-pointer' label="Playlist"  />
-                        <Chip className='hover:tw-bg-[#2A2A2A] tw-cursor-pointer' label="Album"  />
-                        <Chip className='hover:tw-bg-[#2A2A2A] tw-cursor-pointer' label="Artist"  />                        
+                        <Chip className='hover:tw-bg-[#2A2A2A] tw-cursor-pointer' label="Playlist" />
+                        <Chip className='hover:tw-bg-[#2A2A2A] tw-cursor-pointer' label="Album" />
+                        <Chip className='hover:tw-bg-[#2A2A2A] tw-cursor-pointer' label="Artist" />
                     </div>
-                    
+
 
                     <div className='tw-flex tw-mt-5'>
                         <div className='tw-cursor-pointer tw-rounded-lg tw-p-1 hover:tw-bg-[#292929]'>
@@ -67,11 +93,7 @@ function Sidebar() {
                     </div>
 
                     <div className='tw-mt-5 tw-h-[100%] tw-overflow-y-auto tw-flex tw-flex-col tw-gap-2'>
-                        <PlaylistCard />
-                        <PlaylistCard />
-                        <PlaylistCard />
-                        <PlaylistCard />
-                        <PlaylistCard />
+                        {playlists.map((item: OutListDTO, index) => <PlaylistCard item={item} key={index} />)}
                     </div>
 
 

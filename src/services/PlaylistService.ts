@@ -2,7 +2,7 @@ import app from "src/config/FirebaseConfig";
 import {DocumentData, addDoc, doc, getCountFromServer, getDoc, getFirestore, increment, setDoc, updateDoc } from "firebase/firestore";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import axios from "axios";
-import { SearchResults, UserData } from "src/types/dto";
+import { OutListDTO, SearchResults, UserData } from "src/types/dto";
 
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { UserState } from "src/store/slices/UserSlice";
@@ -325,7 +325,61 @@ export default {
             return null
         }
 
+    },
+
+    getUserPlaylist : async (id:string) => {
+        const q = query(collection(db, "playlist"), where("ownedBy", "==" , id ) );
+        const querySnapshot = await getDocs(q);
+        
+        const data:DocumentData[] = [];
+
+        querySnapshot.forEach( async(doc) => {
+            const d = doc.data()
+            d.id = doc.id;
+            data.push(d)
+        });
+
+        
+        let count = 0;
+
+        const out_list: OutListDTO[] = []
+
+        
+        for(let i = 0; i < data.length; i++){
+            
+            const out = {
+                playlistCover : '',
+                playlistData : data[i],
+                songs : [] as DocumentData[]
+            } as OutListDTO
+
+            if(data[i].songs.length == 0){
+                continue
+            }
+
+            out.songs = data[i].songs
+                
+            const ref = doc(db, "songs", data[i].songs[0]);
+            const snap = await getDoc(ref);
+            const songData = snap.data()
+
+            if(!songData){
+                continue
+            }
+
+            if(count == 0){
+                out.playlistCover = songData.meta.album.cover_medium
+                count++;
+            }
+
+            out_list.push(out)
+
+        }
+
+
+        return out_list;
     }
+
 
 }
 
