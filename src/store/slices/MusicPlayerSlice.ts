@@ -8,13 +8,15 @@ export interface MusicPlayerState {
   metaData: MusicMetaDataDTO | null;
   PlaylistData : PlaylistDTO | null
   currentPlayingPlaylistState : boolean
+  currentPlayingPlaylistIndex: number
 }
 
 const initialState: MusicPlayerState = {
   currentlyPlayingUrl: '',
   metaData : null,
   PlaylistData : null,
-  currentPlayingPlaylistState : false
+  currentPlayingPlaylistState : false,
+  currentPlayingPlaylistIndex : 0
 }
 
 export const musicPlayerSlice = createSlice({
@@ -40,10 +42,14 @@ export const musicPlayerSlice = createSlice({
 
     playPlaylist : (state) => {
       state.currentPlayingPlaylistState = true
+    },
+
+    setCurrentlyPlayingIndex : (state , action: PayloadAction<number>) => {
+      state.currentPlayingPlaylistIndex = action.payload
     }
 
   },
 })
 
-export const { setCurrentlyPlaying , setCurrenlyPlayingMetaData , setPlaylistData , stopPlayPlaylist , playPlaylist } = musicPlayerSlice.actions
+export const {setCurrentlyPlayingIndex , setCurrentlyPlaying , setCurrenlyPlayingMetaData , setPlaylistData , stopPlayPlaylist , playPlaylist } = musicPlayerSlice.actions
 export default musicPlayerSlice.reducer

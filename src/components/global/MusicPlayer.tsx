@@ -15,7 +15,7 @@ import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from "src/store/store";
 import { MusicMetaDataDTO } from "src/types/dto";
-import { playPlaylist, setCurrenlyPlayingMetaData, setCurrentlyPlaying, stopPlayPlaylist } from "src/store/slices/MusicPlayerSlice";
+import { playPlaylist, setCurrenlyPlayingMetaData, setCurrentlyPlaying, setCurrentlyPlayingIndex, stopPlayPlaylist } from "src/store/slices/MusicPlayerSlice";
 
 
 
@@ -34,11 +34,13 @@ function MusicPlayer() {
     const playlist = useSelector((state: RootState) => state.musicPlayer.PlaylistData)
     const isPlaylistPlayed: boolean = useSelector((state: RootState) => state.musicPlayer.currentPlayingPlaylistState)
     const currentPlayingPlaylistState = useSelector((state: RootState) => state.musicPlayer.currentPlayingPlaylistState)
+    const currentPlayingPlaylistIndex = useSelector((state: RootState) => state.musicPlayer.currentPlayingPlaylistIndex)
     const dispath = useDispatch()
 
 
     useEffect(() => {
         dispath(setCurrentlyPlaying(playlist?.songs[playlistIndex].url))
+        dispath(setCurrentlyPlayingIndex(playlistIndex))
         dispath(setCurrenlyPlayingMetaData({
             photoURL: playlist?.songs[playlistIndex].meta.album.cover_medium,
             title: playlist?.songs[playlistIndex].meta.title,
@@ -47,12 +49,8 @@ function MusicPlayer() {
     }, [dispath, playlist, playlistIndex])
 
     useEffect(() => {
-        if (currentPlayingPlaylistState) {
-            handlePlay()
-        } else {
-            handlePause()
-        }
-    }, [currentPlayingPlaylistState])
+        setPlaylistIndex(currentPlayingPlaylistIndex)
+    }, [currentPlayingPlaylistIndex])
 
     const handlePlay = () => {
         // @ts-ignore
@@ -60,6 +58,17 @@ function MusicPlayer() {
         dispath(playPlaylist())
         setIsPlaying(currentPlayingPlaylistState);
     };
+
+    useEffect(() => {
+        if (currentPlayingPlaylistState) {
+            handlePlay()
+        } else {
+            handlePause()
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPlayingPlaylistState])
+
+    
 
     const handlePause = () => {
         // @ts-ignore
@@ -103,6 +112,8 @@ function MusicPlayer() {
         } else {
             handlePause()
         }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPlaylistPlayed]);
 
     useEffect(() => {
@@ -127,7 +138,6 @@ function MusicPlayer() {
 
             // @ts-ignore
             audioRef.current.addEventListener('loadeddata', () => {
-                // The audio element has enough data to play without interruption
                 handlePlay();
             });
 
@@ -144,6 +154,7 @@ function MusicPlayer() {
             }
         };
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [playlist?.songs.length, playlistIndex]);
 
 

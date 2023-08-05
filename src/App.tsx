@@ -88,7 +88,7 @@ function App() {
             <Route path="create-playlist" element={<PrivateRoute isAuth={authState} element={<CreatePlaylist />} />} />
             <Route path="edit-playlist" element={<PrivateRoute isAuth={authState} element={<EditPlaylist />} />} />
             <Route path="error" element={<Error />} />
-            {/* <Route path="*" element={<NoPage />} /> */}
+            <Route path="*" element={<Error />} />
           </Route>
 
           <Route path="/auth" element={<AuthLayout />}>
